@@ -12,7 +12,7 @@
             "description": "hash id."
         },
         "created_datetime": {
-            "type": ["string"],
+            "type": ["string", "null"],
             "description": "The time the event was created",
             "format": "date-time"
         },
