@@ -645,7 +645,7 @@ class EventStream(GorgiasStream):
     # is_sorted = True
 
     # since next_page_token_jsonpath is already defined in GorgiasStream, no need to define it here 
-    # next_page_token_jsonpath = "$.meta.next_page"
+    next_page_token_jsonpath = "$.meta.next_page"
 
     # schema_filepath = SCHEMAS_DIR / "events.json"
     schema = th.PropertiesList(
