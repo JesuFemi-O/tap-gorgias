@@ -645,7 +645,7 @@ class EventStream(GorgiasStream):
     # is_sorted = True
 
     # since next_page_token_jsonpath is already defined in GorgiasStream, no need to define it here 
-    next_page_token_jsonpath = "$.meta.next_page"
+    # next_page_token_jsonpath = "$.meta.next_page"
 
     # schema_filepath = SCHEMAS_DIR / "events.json"
     schema = th.PropertiesList(
@@ -656,7 +656,7 @@ class EventStream(GorgiasStream):
         th.Property("object_type", th.StringType),
         th.Property("type", th.StringType),
         th.Property("user_id", th.IntegerType),
-    )
+    ).to_dict()
 
     def get_records(self, context: Optional[dict]) -> Iterable[Dict[str, Any]]:
         """Return a generator of row-type dictionary objects.
