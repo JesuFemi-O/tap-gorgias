@@ -647,16 +647,21 @@ class EventStream(GorgiasStream):
     # since next_page_token_jsonpath is already defined in GorgiasStream, no need to define it here 
     # next_page_token_jsonpath = "$.meta.next_page"
 
-    # schema_filepath = SCHEMAS_DIR / "events.json"
-    schema = th.PropertiesList(
-        th.Property("id", th.IntegerType),
-        th.Property("context", th.StringType),
-        th.Property("created_datetime", th.DateTimeType),
-        th.Property("object_id", th.IntegerType),
-        th.Property("object_type", th.StringType),
-        th.Property("type", th.StringType),
-        th.Property("user_id", th.IntegerType),
-    ).to_dict()
+    schema_filepath = SCHEMAS_DIR / "events.json"
+
+    def get_url_params(
+        self, context: Optional[dict], next_page_token: Optional[Any]
+    ) -> Dict[str, Any]:
+        sync_start_datetime = self.get_starting_timestamp(context)
+        dt_str = sync_start_datetime.replace(tzinfo=None).isoformat()
+        return {"cursor": next_page_token, "limit": self.config["page_size"], "created_datetime[gte]":dt_str}
+
+    def post_process(self, row: dict, context: dict = None) -> dict:
+        if row:
+            data = row.get('data')
+            if data:
+                row['data'] = json.dumps(data)
+        return row
 
     def get_records(self, context: Optional[dict]) -> Iterable[Dict[str, Any]]:
         """Return a generator of row-type dictionary objects.
