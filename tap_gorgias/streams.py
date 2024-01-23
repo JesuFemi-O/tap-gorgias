@@ -613,9 +613,9 @@ class IntegreationsStream(GorgiasStream):
             "user",
             th.ObjectType(th.Property("id", th.IntegerType)),
         ),
-        th.Property("type", th.StringType),
-        th.Property("name", th.StringType),
-        th.Property("description", th.StringType),
+        # th.Property("type", th.StringType),
+        # th.Property("name", th.StringType),
+        # th.Property("description", th.StringType),
         th.Property(
             "meta",
             th.ObjectType(
