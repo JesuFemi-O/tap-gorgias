@@ -27,7 +27,7 @@ SCHEMAS_DIR = Path(__file__).parent / Path("./schemas")
 class TicketsStream(GorgiasStream):
     """Define custom stream."""
 
-    name = "tickets"
+    name = "tickets_tmp"
     path = "/api/views/{view_id}/items"
     primary_keys = ["id"]
     replication_key = "updated_datetime"
